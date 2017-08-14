@@ -1,0 +1,1 @@
+﻿Please use package.json and npm download js dependencies
