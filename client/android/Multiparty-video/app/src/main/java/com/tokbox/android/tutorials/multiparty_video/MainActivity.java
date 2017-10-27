@@ -9,6 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.opentok.android.BaseVideoRenderer;
@@ -152,6 +155,33 @@ public class MainActivity extends AppCompatActivity
     }
     //----------------------------------PublisherKit.PublisherListener------------------------------------------------------
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    // --------------------------- menu 資源綁定 ---------------------------------
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.app_menu, menu);
+        return true;
+    }
+    // --------------------------- menu 資源綁定 ---------------------------------
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // --------------------------- menu item 點擊處理 ---------------------------------
+        switch (item.getItemId()) {
+            case R.id.goHome:
+                Intent intent = new Intent(this,FirstActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.goWebApp:
+                Intent webIntent = new Intent("android.intent.action.myWeb");
+                startActivity(webIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

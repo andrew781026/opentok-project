@@ -2,6 +2,7 @@ package com.tokbox.android.tutorials.multiparty_audio;
 
 import android.webkit.URLUtil;
 
+// apiKey 已過期
 public class OpenTokConfig {
     // *** Fill the following variables using your own Project info from the OpenTok dashboard  ***
     // ***                      https://dashboard.tokbox.com/projects                           ***
