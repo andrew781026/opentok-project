@@ -6,6 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_container"
-    tools:context="com.tokbox.android.tutorials.multiparty_video.MainActivity"
+    tools:context="andrew.com.riko.www.webviewproject.VideoChatActivity"
     android:background="#000">
 </android.support.constraint.ConstraintLayout>

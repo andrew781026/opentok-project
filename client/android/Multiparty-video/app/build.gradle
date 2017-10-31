@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId 'com.tokbox.android.tutorials.multiparty_video'
-        minSdkVersion 16
+        minSdkVersion 19 /*  19 = android 4.4 */
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

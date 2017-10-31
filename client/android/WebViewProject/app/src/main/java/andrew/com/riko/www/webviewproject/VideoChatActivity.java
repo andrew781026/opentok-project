@@ -1,12 +1,12 @@
-package com.tokbox.android.tutorials.multiparty_video;
+package andrew.com.riko.www.webviewproject;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -26,16 +26,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import andrew.com.riko.www.webviewproject.properties.KeyName;
+import andrew.com.riko.www.webviewproject.videochat.ConstraintSetHelper;
+import andrew.com.riko.www.webviewproject.videochat.OpenTokConfig;
+import andrew.com.riko.www.webviewproject.videochat.WebServiceCoordinator;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-
-public class MainActivity extends AppCompatActivity
+public class VideoChatActivity extends AppCompatActivity
         implements EasyPermissions.PermissionCallbacks,Session.SessionListener,PublisherKit.PublisherListener {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int RC_SETTINGS_SCREEN_PERM = 800;
+    private static final String TAG = VideoChatActivity.class.getSimpleName();
+    private static final int RC_SETTINGS_SCREEN_PERM = 800; // 螢幕刷新速度
     private static final int RC_VIDEO_APP_PERM = 800;
 
     // Suppressing this warning. mWebServiceCoordinator will get GarbageCollected if it is local.
@@ -44,7 +47,9 @@ public class MainActivity extends AppCompatActivity
 
     private Session mSession;
     private Publisher mPublisher;
-    private String chatServerUrl = "http://192.168.1.15:3000";
+    private String restfulServerUrl = "http://192.168.1.15:3000";
+    private String roomName = "bigRoom";
+    private boolean isTest = false;
 
     private ArrayList<Subscriber> mSubscribers = new ArrayList<Subscriber>();
     private HashMap<Stream, Subscriber> mSubscriberStreams = new HashMap<Stream, Subscriber>();
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     public void onError(Session session, OpentokError opentokError) {
         Log.d(TAG, "onError: Error (" + opentokError.getMessage() + ") in session " + session.getSessionId());
 
-        Toast.makeText(MainActivity.this, "Session error. See the logcat please.", Toast.LENGTH_LONG).show();
+        Toast.makeText(VideoChatActivity.this, "Session error. See the logcat please.", Toast.LENGTH_LONG).show();
         finish();
     }
 
@@ -79,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     public void onStreamReceived(Session session, Stream stream) {
         Log.d(TAG, "onStreamReceived: New stream " + stream.getStreamId() + " in session " + session.getSessionId());
 
-        final Subscriber subscriber = new Subscriber.Builder(MainActivity.this, stream).build();
+        final Subscriber subscriber = new Subscriber.Builder(VideoChatActivity.this, stream).build();
         mSession.subscribe(subscriber);
         mSubscribers.add(subscriber);
         mSubscriberStreams.put(stream, subscriber);
@@ -120,15 +125,15 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onSessionConnectionDataReady(String apiKey, String sessionId, String token) {
 
-            Log.d( MainActivity.class.getSimpleName() , "ApiKey: "+apiKey + " SessionId: "+ sessionId + " Token: "+token);
+            Log.d( VideoChatActivity.class.getSimpleName() , "ApiKey: "+apiKey + " SessionId: "+ sessionId + " Token: "+token);
             initializeSession(apiKey, sessionId, token);
         }
 
         @Override
         public void onWebServiceCoordinatorError(Exception error) {
 
-            Log.e( MainActivity.class.getSimpleName() , "Web Service error: " + error.getMessage());
-            Toast.makeText(MainActivity.this, "Web Service error: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e( VideoChatActivity.class.getSimpleName() , "Web Service error: " + error.getMessage());
+            Toast.makeText(VideoChatActivity.this, "Web Service error: " + error.getMessage(), Toast.LENGTH_LONG).show();
             finish();
 
         }
@@ -160,7 +165,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
     // --------------------------- menu 資源綁定 ---------------------------------
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.app_menu, menu);
+        inflater.inflate(R.menu.video_menu, menu);
         return true;
     }
     // --------------------------- menu 資源綁定 ---------------------------------
@@ -188,15 +193,17 @@ public class MainActivity extends AppCompatActivity
         Log.d(TAG, "onCreate");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.video_chat_layout);
 
         mContainer = (ConstraintLayout) findViewById(R.id.main_container);
 
         Intent intent = super.getIntent();
 
-        chatServerUrl = intent.getStringExtra("CHAT_SERVER_URL");
-        chatServerUrl = "http://"+chatServerUrl;
-        Toast.makeText(this,"chatServerUrl 是 "+chatServerUrl,Toast.LENGTH_SHORT).show();
+        restfulServerUrl = intent.getStringExtra(KeyName.SERVER_URL);
+        restfulServerUrl = "http://"+ restfulServerUrl;
+        Toast.makeText(this,"restfulServerUrl 是 "+ restfulServerUrl,Toast.LENGTH_SHORT).show();
+
+        roomName = intent.getStringExtra(KeyName.ROOM_NAME);
 
         requestPermissions();
     }
@@ -250,7 +257,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onUserLeaveHint() {
         Log.d(TAG,"onUserLeaveHint ");
-        // Intent intent = new Intent(this,MainActivity.class);
+        // Intent intent = new Intent(this,VideoChatActivity.class);
         // startActivity(intent);
         finish();
         super.onUserLeaveHint();
@@ -312,25 +319,28 @@ public class MainActivity extends AppCompatActivity
         };
         if (EasyPermissions.hasPermissions(this, perms)) {
 
-            mSession = new Session.Builder(this, OpenTokConfig.API_KEY, OpenTokConfig.SESSION_ID).sessionOptions(new Session.SessionOptions() {
-                @Override
-                public boolean useTextureViews() {
-                    return true;
-                }
-            }).build();
-            mSession.setSessionListener(this);
-            mSession.connect(OpenTokConfig.TOKEN);
-            /*
-            if (chatServerUrl != null) {
-                if (OpenTokConfig.isWebServerConfigUrlValid(chatServerUrl)) {
+            if (restfulServerUrl != null) {
+                if (OpenTokConfig.isWebServerConfigUrlValid(restfulServerUrl)) {
                     mWebServiceCoordinator = new WebServiceCoordinator(this, webserviceListener);
-                    // mWebServiceCoordinator.fetchSessionConnectionData(OpenTokConfig.SESSION_INFO_ENDPOINT);
-                    mWebServiceCoordinator.fetchSessionConnectionData(chatServerUrl+ "/session");
+                    String tokenUrl = restfulServerUrl + "/room/"+roomName ;
+                    mWebServiceCoordinator.fetchSessionConnectionData(tokenUrl);
                 } else {
-                    Toast.makeText(this,"cannot connect to "+chatServerUrl,Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(this,"cannot connect to "+ restfulServerUrl,Toast.LENGTH_SHORT).show();
+
+                    // 在測試時 , 可以先手動指定相關參數
+                    if ( isTest ){
+
+                        String apiKey = OpenTokConfig.API_KEY;
+                        String sessionId = OpenTokConfig.SESSION_ID;
+                        String token = OpenTokConfig.TOKEN;
+
+                        initializeSession(apiKey, sessionId, token);
+                    }
+
                 }
             }
-*/
+
             startPublisherPreview();
             mPublisher.getView().setId(R.id.publisher_view_id);
             mContainer.addView(mPublisher.getView());

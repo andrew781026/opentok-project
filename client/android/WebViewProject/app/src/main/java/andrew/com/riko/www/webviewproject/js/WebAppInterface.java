@@ -1,4 +1,4 @@
-package andrew.com.riko.www.webviewproject;
+package andrew.com.riko.www.webviewproject.js;
 
 import android.Manifest;
 import android.content.Context;
@@ -9,11 +9,14 @@ import android.support.v4.app.ActivityCompat;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
+import andrew.com.riko.www.webviewproject.VideoChatActivity;
+import andrew.com.riko.www.webviewproject.properties.KeyName;
+
 public class WebAppInterface {
     Context mContext;
 
     /** Instantiate the interface and set the context */
-    WebAppInterface(Context c) {
+    public WebAppInterface(Context c) {
         mContext = c;
     }
 
@@ -43,4 +46,17 @@ public class WebAppInterface {
             mContext.startActivity(intent);
         }
     }
+
+    /** Show a toast from the web page */
+    @JavascriptInterface
+    public void startChat(String apiKey,String sessionId,String token) {
+        // js input apiKey , sessionId , token
+        Intent intent = new Intent(mContext, VideoChatActivity.class);
+        intent.putExtra(KeyName.API_KEY,apiKey);
+        intent.putExtra(KeyName.SESSION_ID,sessionId);
+        intent.putExtra(KeyName.TOKEN,token);
+        mContext.startActivity(intent);
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.tokbox.android.tutorials.multiparty_video;
+package andrew.com.riko.www.webviewproject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import andrew.com.riko.www.webviewproject.properties.KeyName;
+
 /**
  * Created by Test on 2017/8/13.
  */
@@ -15,6 +17,7 @@ import android.widget.Toast;
 public class FirstActivity extends Activity {
 
     EditText urlEditText ;
+    EditText roomNameEditText ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class FirstActivity extends Activity {
         super.setContentView(R.layout.first_layout);
 
         urlEditText = (EditText) super.findViewById(R.id.inputURL);
+        roomNameEditText = (EditText) super.findViewById(R.id.roomName);
 
 
     }
@@ -31,12 +35,14 @@ public class FirstActivity extends Activity {
     public void connectClick(View v){
 
         String url = urlEditText.getText().toString();
+        String roomName = roomNameEditText.getText().toString();
 
         if( url == null ){
             Toast.makeText( this , "請輸入連線URL" , Toast.LENGTH_SHORT ).show();
         }else {
-            Intent intent = new Intent(this,VideoChatActivity.class);
-            intent.putExtra("CHAT_SERVER_URL",url);
+            Intent intent = new Intent(this,MainActivity.class);
+            intent.putExtra(KeyName.SERVER_URL,url);
+            intent.putExtra(KeyName.ROOM_NAME,roomName);
             startActivity(intent);
         }
 
