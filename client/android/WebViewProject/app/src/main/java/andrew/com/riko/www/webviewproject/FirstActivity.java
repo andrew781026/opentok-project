@@ -1,52 +1,59 @@
 package andrew.com.riko.www.webviewproject;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.Button;
 
-import andrew.com.riko.www.webviewproject.properties.KeyName;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by Test on 2017/8/13.
- */
-
-public class FirstActivity extends Activity {
-
-    EditText urlEditText ;
-    EditText roomNameEditText ;
+public class FirstActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_first);
 
-        super.setContentView(R.layout.first_layout);
+        Button tokenBTN = (Button) findViewById(R.id.goToGetTokenPage);
+        Button messageBTN = (Button) findViewById(R.id.goToSendMessagePage);
+        Button loginBTN = (Button) findViewById(R.id.goToLoginPage);
+        Button nativeBTN = (Button) findViewById(R.id.goToBNP);
+        Button htmlBTN = (Button) findViewById(R.id.goToWebViewPage);
+        Button picBTN = (Button) findViewById(R.id.goToPicPage);
 
-        urlEditText = (EditText) super.findViewById(R.id.inputURL);
-        roomNameEditText = (EditText) super.findViewById(R.id.roomName);
+        tokenBTN.setOnClickListener(clickListener);
+        messageBTN.setOnClickListener(clickListener);
+        loginBTN.setOnClickListener(clickListener);
+        nativeBTN.setOnClickListener(clickListener);
+        htmlBTN.setOnClickListener(clickListener);
+        picBTN.setOnClickListener(clickListener);
+
 
 
     }
 
+    private View.OnClickListener clickListener = new View.OnClickListener(){
 
-    public void connectClick(View v){
+        @Override
+        public void onClick(View v) {
 
-        String url = urlEditText.getText().toString();
-        String roomName = roomNameEditText.getText().toString();
+            Map<Integer,Class> map = new HashMap<>();
+            map.put(R.id.goToGetTokenPage,GetTokenActivity.class);
+            map.put(R.id.goToSendMessagePage,FirstActivity.class);
+            map.put(R.id.goToLoginPage,LoginActivity.class);
+            map.put(R.id.goToBNP,BottomActivity.class);
+            map.put(R.id.goToWebViewPage,HtmlActivity.class);
+            map.put(R.id.goToPicPage,PictureActivity.class);
 
-        if( url == null ){
-            Toast.makeText( this , "請輸入連線URL" , Toast.LENGTH_SHORT ).show();
-        }else {
-            Intent intent = new Intent(this,MainActivity.class);
-            intent.putExtra(KeyName.SERVER_URL,url);
-            intent.putExtra(KeyName.ROOM_NAME,roomName);
-            startActivity(intent);
+            Class targetActivity = map.get(v.getId());
+            if ( targetActivity != null ){
+                Intent intent = new Intent(FirstActivity.this, targetActivity );
+                if ( intent != null ) startActivity(intent);
+            }
+
         }
-
-
-    }
+    };
 
 }

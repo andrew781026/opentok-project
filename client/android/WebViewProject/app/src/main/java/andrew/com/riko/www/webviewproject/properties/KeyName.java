@@ -10,4 +10,5 @@ public class KeyName {
     public static final String TOKEN = "token";
     public static final String SERVER_URL = "CHAT_SERVER_URL";
     public static final String ROOM_NAME = "ROOM_NAME";
+    public static final String VIDEO_CONNECT_INFO = "VIDEO_CONNECT_INFO" ;
 }

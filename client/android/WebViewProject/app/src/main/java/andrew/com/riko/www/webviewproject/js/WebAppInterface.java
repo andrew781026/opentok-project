@@ -5,15 +5,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
 
-import andrew.com.riko.www.webviewproject.VideoChatActivity;
+import andrew.com.riko.www.webviewproject.MultiVideoChatActivity;
+import andrew.com.riko.www.webviewproject.model.VideoConnectInfo;
 import andrew.com.riko.www.webviewproject.properties.KeyName;
 
 public class WebAppInterface {
     Context mContext;
+    // private static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 
     /** Instantiate the interface and set the context */
     public WebAppInterface(Context c) {
@@ -47,14 +50,28 @@ public class WebAppInterface {
         }
     }
 
-    /** Show a toast from the web page */
     @JavascriptInterface
-    public void startChat(String apiKey,String sessionId,String token) {
+    public void startChat(String apiKey,String sessionId,String token,String roomName) {
         // js input apiKey , sessionId , token
-        Intent intent = new Intent(mContext, VideoChatActivity.class);
-        intent.putExtra(KeyName.API_KEY,apiKey);
-        intent.putExtra(KeyName.SESSION_ID,sessionId);
-        intent.putExtra(KeyName.TOKEN,token);
+        VideoConnectInfo videoConnectInfo = new VideoConnectInfo(apiKey,sessionId,token,roomName);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(KeyName.VIDEO_CONNECT_INFO,videoConnectInfo);
+        bundle.putString(KeyName.API_KEY,apiKey);
+        bundle.putString(KeyName.SESSION_ID,sessionId);
+        bundle.putString(KeyName.TOKEN,token);
+        bundle.putString(KeyName.ROOM_NAME,/* sdf.format(new Date()) + */ roomName);
+        Intent intent = new Intent(mContext, MultiVideoChatActivity.class);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
+    }
+
+    @JavascriptInterface
+    public void gotoVideoChat(String restServerUrl,String roomName) {
+        Toast.makeText(mContext, "restServerUrl="+restServerUrl, Toast.LENGTH_SHORT).show();
+        // js input apiKey , sessionId , token
+        Intent intent = new Intent(mContext, MultiVideoChatActivity.class);
+        intent.putExtra(KeyName.SERVER_URL,restServerUrl);
+        intent.putExtra(KeyName.ROOM_NAME,roomName);
         mContext.startActivity(intent);
     }
 
