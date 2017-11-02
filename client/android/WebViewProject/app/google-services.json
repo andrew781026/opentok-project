@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "685934991832",
+    "firebase_url": "https://webviewproject-6f9f1.firebaseio.com",
+    "project_id": "webviewproject-6f9f1",
+    "storage_bucket": "webviewproject-6f9f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685934991832:android:0b3094a958c9af7e",
+        "android_client_info": {
+          "package_name": "andrew.com.riko.www.webviewproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685934991832-hcdg2ofh7q985ahrm0fmegtbdqu3i9rc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "andrew.com.riko.www.webviewproject",
+            "certificate_hash": "824ca3eac0db3053dd8dbc0d56f7fea5bf399483"
+          }
+        },
+        {
+          "client_id": "685934991832-aab9rp4f3pmt230e6c6nltjb30r2kbka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyFWOFk2oGU5rr_U5UsKcTfJzBHfRYfDs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685934991832-aab9rp4f3pmt230e6c6nltjb30r2kbka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
