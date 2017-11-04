@@ -24,6 +24,7 @@ public class HtmlActivity extends AppCompatActivity {
 
     WebView myWebView ;
     String url = "http://emarket.riko.com.tw:8444/Search_BILL_OF_PURCHASE/yiyo/client-call-view.html";
+    // String url = "https://www.yoecare.com/client";
 
     private Handler mHandler = new Handler() {
 

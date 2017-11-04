@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import andrew.com.riko.www.webviewproject.properties.KeyName;
+import andrew.com.riko.www.webviewproject.MultiVideoChatActivity;
+
 
 /**
  * Created by Test on 2017/8/13.
@@ -37,7 +39,7 @@ public class GetTokenActivity extends Activity {
         if( url == null ){
             Toast.makeText( this , "請輸入連線URL" , Toast.LENGTH_SHORT ).show();
         }else {
-            Intent intent = new Intent(this,HtmlActivity.class);
+            Intent intent = new Intent(this,MultiVideoChatActivity.class);
             intent.putExtra(KeyName.SERVER_URL,url);
             intent.putExtra(KeyName.ROOM_NAME,roomName);
             startActivity(intent);

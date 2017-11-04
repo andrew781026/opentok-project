@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="請輸入要連線的伺服器URL"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/inputURL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="可以輸入：oriact-video-chat-project.herokuapp.com"
+        android:inputType="text"
+        android:text="oriact-video-chat-project.herokuapp.com" />
+
+    <TextView
+        android:id="@+id/tvRoomName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="請輸入要連線房間名\n(vip姓名,可當房間名)"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/roomName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="可以輸入：黃曉蓉"
+        android:inputType="textPersonName"
+        android:text="黃曉蓉" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="connectClick"
+        android:text="連線" />
+</LinearLayout>

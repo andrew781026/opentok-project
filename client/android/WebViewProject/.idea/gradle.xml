@@ -9,6 +9,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/docterapp" />
+            <option value="$PROJECT_DIR$/yiyolibrary" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

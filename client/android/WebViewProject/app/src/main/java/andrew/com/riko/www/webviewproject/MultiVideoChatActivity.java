@@ -169,7 +169,7 @@ public class MultiVideoChatActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    // --------------------------- menu 資源綁定 ---------------------------------
+        // --------------------------- menu 資源綁定 ---------------------------------
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.video_menu, menu);
         return true;

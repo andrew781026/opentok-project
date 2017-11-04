@@ -41,7 +41,7 @@ public class FirstActivity extends AppCompatActivity {
 
             Map<Integer,Class> map = new HashMap<>();
             map.put(R.id.goToGetTokenPage,GetTokenActivity.class);
-            map.put(R.id.goToSendMessagePage,FirstActivity.class);
+            map.put(R.id.goToSendMessagePage,SendMessageActivity.class);
             map.put(R.id.goToLoginPage,LoginActivity.class);
             map.put(R.id.goToBNP,BottomActivity.class);
             map.put(R.id.goToWebViewPage,HtmlActivity.class);

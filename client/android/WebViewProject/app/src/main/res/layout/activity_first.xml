@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="andrew.com.riko.www.webviewproject.FirstActivity"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/goToWebViewPage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.00"
+        android:text="到VIP頁面(html載入)" />
+
+    <Button
+        android:id="@+id/goToBNP"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.00"
+        android:text="到VIP頁面(native code)" />
+
+    <Button
+        android:id="@+id/goToLoginPage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.00"
+        android:text="到登入頁面" />
+
+    <Button
+        android:id="@+id/goToSendMessagePage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="到送訊息功能"
+        android:layout_weight="0.00" />
+
+    <Button
+        android:id="@+id/goToGetTokenPage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="到取token頁面" />
+
+    <Button
+        android:id="@+id/goToPicPage"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="到拍照or取照片頁面" />
+
+</LinearLayout>

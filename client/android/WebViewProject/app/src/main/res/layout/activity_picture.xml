@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="andrew.com.riko.www.webviewproject.PictureActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_stat_ic_notification" />
+
+    <Button
+        android:id="@+id/takePicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拍照"
+        android:onClick="takePicture"/>
+
+    <Button
+        android:id="@+id/getPicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getPicture"
+        android:text="取圖片" />
+</LinearLayout>

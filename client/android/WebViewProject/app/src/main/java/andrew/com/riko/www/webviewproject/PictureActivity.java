@@ -3,6 +3,7 @@ package andrew.com.riko.www.webviewproject;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -38,7 +39,6 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     public void getPicture(View v){
-
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, RESULT_GET_IMG);
@@ -64,22 +64,12 @@ public class PictureActivity extends AppCompatActivity {
     }
 
     private void takePictureFromCamera(Intent data){
-        /*
-        try {
-            final Uri imageUri = data.getData();
-            final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            image_view.setImageBitmap(selectedImage);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
-        }
-        */
+        // 處理照片 , 要確認他如何儲存 跟 存在哪裡?
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File destination = new File(Environment.getExternalStorageDirectory(),
-                System.currentTimeMillis() + ".jpg");
+        File parentFile = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File destination = new File(parentFile, System.currentTimeMillis() + ".jpg");
         FileOutputStream fo;
         try {
             destination.createNewFile();
@@ -92,7 +82,6 @@ public class PictureActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         image_view.setImageBitmap(thumbnail);
-
     }
 
     private void getPictureFromGallery(int resultCode,Intent data){
@@ -108,11 +97,13 @@ public class PictureActivity extends AppCompatActivity {
             final Uri imageUri = data.getData();
             final InputStream imageStream = getContentResolver().openInputStream(imageUri);
             final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+            // Bitmap resizeBmp = Bitmap.createBitmap(selectedImage,0,0,image_view.getMaxWidth(),image_view.getMaxHeight());
             image_view.setImageBitmap(selectedImage);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
         }
     }
+
 
 }

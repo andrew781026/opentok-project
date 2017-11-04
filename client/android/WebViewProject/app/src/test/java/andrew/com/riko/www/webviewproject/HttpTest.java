@@ -15,8 +15,8 @@ import java.net.URLEncoder;
 public class HttpTest {
 
     private final String USER_AGENT = "Mozilla/4.0"; // => IE7
-    private static int taskId = 12;
-    private static String url = "http://114.34.167.136/calls/"+taskId;
+    private static int taskId = 1;
+    private static String url = "http://www.yoecare.com/calls/"+taskId;
 
     @Test
     public void testApiHttpGet() throws Exception {

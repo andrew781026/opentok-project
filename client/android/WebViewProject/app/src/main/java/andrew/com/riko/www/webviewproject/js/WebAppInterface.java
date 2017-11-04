@@ -14,6 +14,7 @@ import andrew.com.riko.www.webviewproject.MultiVideoChatActivity;
 import andrew.com.riko.www.webviewproject.model.VideoConnectInfo;
 import andrew.com.riko.www.webviewproject.properties.KeyName;
 
+
 public class WebAppInterface {
     Context mContext;
     // private static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -53,6 +54,7 @@ public class WebAppInterface {
     @JavascriptInterface
     public void startChat(String apiKey,String sessionId,String token,String roomName) {
         // js input apiKey , sessionId , token
+        Toast.makeText(mContext,"in startChat",Toast.LENGTH_SHORT).show();
         VideoConnectInfo videoConnectInfo = new VideoConnectInfo(apiKey,sessionId,token,roomName);
         Bundle bundle = new Bundle();
         bundle.putSerializable(KeyName.VIDEO_CONNECT_INFO,videoConnectInfo);

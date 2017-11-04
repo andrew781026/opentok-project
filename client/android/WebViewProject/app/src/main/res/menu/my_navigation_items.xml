@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/action_call"
+        android:title="@string/menu_call"
+        android:icon="@android:drawable/ic_menu_call"/>
+    <item android:id="@+id/action_appointment"
+        android:title="@string/menu_appointment"
+        android:icon="@android:drawable/ic_menu_my_calendar"/>
+    <item android:id="@+id/action_history"
+        android:title="@string/menu_history"
+        android:icon="@drawable/ic_history"/>
+    <item android:id="@+id/action_message"
+        android:title="@string/menu_message"
+        android:icon="@drawable/ic_chat"/>
+</menu>

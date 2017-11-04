@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/WebViewProject.iml" filepath="$PROJECT_DIR$/WebViewProject.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/docterapp/docterapp.iml" filepath="$PROJECT_DIR$/docterapp/docterapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yiyolibrary/yiyolibrary.iml" filepath="$PROJECT_DIR$/yiyolibrary/yiyolibrary.iml" />
     </modules>
   </component>
 </project>

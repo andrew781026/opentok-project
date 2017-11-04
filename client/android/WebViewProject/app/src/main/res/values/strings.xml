@@ -2,11 +2,7 @@
     <string name="app_name">WebViewProject</string>
     <string name="dialog_message">連線錯誤離開程式</string>
     <string name="dialog_title">連線錯誤</string>
-    <string name="rationale_video_app">This app needs access to your camera and mic so you can perform video calls</string>
-    <string name="rationale_ask_again">This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions.</string>
-    <string name="title_settings_dialog">Permissions Required</string>
-    <string name="setting">設定</string>
-    <string name="cancel">取消</string>
+
     <string name="default_notification_channel_id">消息提示</string>
 
     <!--   Strings related to bottom navigation view -->
@@ -14,6 +10,14 @@
     <string name="menu_appointment">掛號</string>
     <string name="menu_history">紀錄</string>
     <string name="menu_message">訊息</string>
+
+    <string name="title_video_chat">多方視訊通話</string>
+
+    <string name="setting">設定</string>
+    <string name="cancel">取消</string>
+    <string name="rationale_video_app">This app needs access to your camera and mic so you can perform video calls</string>
+    <string name="rationale_ask_again">This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions.</string>
+    <string name="title_settings_dialog">Permissions Required</string>
 
     <!-- activity page title -->
     <string name="title_activity_bottom">BottomActivity</string>
@@ -38,5 +42,28 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+
+    <string-array name="hospitals">
+        <item>臺大醫院</item>
+        <item>三軍總醫院</item>
+        <item>榮總</item>
+        <item>長庚</item>
+        <item>馬偕醫院</item>
+    </string-array>
+
+    <string-array name="departments">
+        <item>神經科</item>
+        <item>泌尿科</item>
+        <item>家醫科</item>
+        <item>婦產科</item>
+        <item>復健科</item>
+    </string-array>
+
+    <string-array name="times">
+        <item>上午</item>
+        <item>下午</item>
+        <item>晚上</item>
+    </string-array>
 
 </resources>

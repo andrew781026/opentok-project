@@ -1,17 +1,26 @@
 package andrew.com.riko.www.webviewproject.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import andrew.com.riko.www.webviewproject.utils.StringUtils;
+
 
 /**
  * Created by Test on 2017/11/1.
  */
 public class VideoConnectInfo implements Serializable {
 
+    @SerializedName("id")
+    private int taskId;
+    @SerializedName("api_key")
     private String apiKey;
+    @SerializedName("session_id")
     private String sessionId;
+    @SerializedName("token")
     private String token;
+    @SerializedName("room_name")
     private String roomName;
 
     public VideoConnectInfo() {
@@ -22,6 +31,22 @@ public class VideoConnectInfo implements Serializable {
         this.sessionId = sessionId;
         this.token = token;
         this.roomName = roomName;
+    }
+
+    public VideoConnectInfo(int taskId, String apiKey, String sessionId, String token, String roomName) {
+        this.taskId = taskId;
+        this.apiKey = apiKey;
+        this.sessionId = sessionId;
+        this.token = token;
+        this.roomName = roomName;
+    }
+
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
     }
 
     public String getApiKey() {
@@ -67,7 +92,8 @@ public class VideoConnectInfo implements Serializable {
     @Override
     public String toString() {
         return "VideoConnectInfo{" +
-                "apiKey='" + apiKey + '\'' +
+                "taskId=" + taskId +
+                ", apiKey='" + apiKey + '\'' +
                 ", sessionId='" + sessionId + '\'' +
                 ", token='" + token + '\'' +
                 ", roomName='" + roomName + '\'' +
