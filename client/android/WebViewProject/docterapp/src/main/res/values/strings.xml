@@ -1,7 +1,14 @@
 <resources>
-       <string name="app_name">Doctor Application</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Doctor Application</string>
+    <string name="ff">測試在doctor</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="advices">
+        <item>掛號</item>
+        <item>立即就診</item>
+        <item>專人陪同</item>
+    </string-array>
 
 </resources>

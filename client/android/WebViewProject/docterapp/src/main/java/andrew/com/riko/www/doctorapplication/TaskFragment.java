@@ -1,35 +1,35 @@
-package andrew.com.riko.www.webviewproject;
+package andrew.com.riko.www.doctorapplication;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import andrew.com.riko.www.webviewproject.model.History;
+import andrew.com.riko.www.doctorapplication.model.Task;
+import andrew.com.riko.www.doctorapplication.properties.KeyName;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link HistoryFragment.OnFragmentInteractionListener} interface
+ * {@link TaskFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link HistoryFragment#newInstance} factory method to
+ * Use the {@link TaskFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HistoryFragment extends Fragment {
+public class TaskFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +41,7 @@ public class HistoryFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public HistoryFragment() {
+    public TaskFragment() {
         // Required empty public constructor
     }
 
@@ -51,11 +51,11 @@ public class HistoryFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment HistoryFragment.
+     * @return A new instance of fragment TaskFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static HistoryFragment newInstance(String param1, String param2) {
-        HistoryFragment fragment = new HistoryFragment();
+    public static TaskFragment newInstance(String param1, String param2) {
+        TaskFragment fragment = new TaskFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -73,43 +73,26 @@ public class HistoryFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // 改變 Title
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("使用紀錄");
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         ListView listView = (ListView) getView().findViewById(R.id.listView);
 
-        List<History> historyList = new ArrayList<>();
-        historyList.add(new History("急診","腿一直在抖,無法停止",R.drawable.ic_dashboard_black_24dp));
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(new Task("諮詢請求","楊小過",26,"右眼一直跳,無法停止",R.drawable.office_lady));
+        taskList.add(new Task("掛號請求","董舉人",52,"掛神經科神醫-葉炳和",R.drawable.man));
+        taskList.add(new Task("陪同請求","江泰學",9,"小朋友,一直流鼻水,請求陪同看小兒科",R.drawable.woman));
 
-        // TODO  載入的圖片較大 , 會有 excption 需要處理
-        /*  
-        Bitmap bmp=BitmapFactory.decodeResource(getResources(), R.drawable.manager);
-
-        // 把 bitmap 轉成 byte
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 50, stream );
-        byte bytes[] = stream.toByteArray();
-        */
-
-        historyList.add(new History("出診","北榮小兒科",R.drawable.ic_home_black_24dp));
-        historyList.add(new History("諮詢","台大醫科神經科",R.drawable.ic_chat));
-
-        HistoryArrayAdapter adapter = new HistoryArrayAdapter(getActivity(),historyList);
+        TaskArrayAdapter adapter = new TaskArrayAdapter(getActivity(),taskList);
         listView.setAdapter(adapter);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        return inflater.inflate(R.layout.fragment_task, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -125,7 +108,6 @@ public class HistoryFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context,"history fragment attached",Toast.LENGTH_SHORT).show();
             /*
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

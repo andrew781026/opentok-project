@@ -11,10 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import andrew.com.riko.www.webviewproject.utils.BottomNavigationViewHelper;
 
 

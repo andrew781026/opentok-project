@@ -1,14 +1,9 @@
 <resources>
     <string name="app_name">YIYO Library</string>
 
-
-    <string name="title_video_chat">多方視訊通話</string>
-
-    <string name="setting">設定</string>
-    <string name="cancel">取消</string>
-    <string name="rationale_video_app">This app needs access to your camera and mic so you can perform video calls</string>
-    <string name="rationale_ask_again">This app may not work correctly without the requested permissions. Open the app settings screen to modify app permissions.</string>
-    <string name="title_settings_dialog">Permissions Required</string>
+    <string name="title_home">接收任務</string>
+    <string name="title_dashboard">打給客服</string>
+    <string name="title_notifications">我的任務</string>
 
 
 </resources>

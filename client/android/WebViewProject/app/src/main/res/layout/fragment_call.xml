@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/history" />
+            app:srcCompat="@drawable/service" />
 
         <Button
             android:id="@+id/callBtn"

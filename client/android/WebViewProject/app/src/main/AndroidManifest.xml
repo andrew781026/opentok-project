@@ -14,9 +14,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_chrome_reader_mode_black_24dp"
+        android:icon="@mipmap/vip_call"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_chrome_reader_mode_black_24dp"
+        android:roundIcon="@mipmap/vip_call"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -41,7 +41,12 @@
             android:label="@string/title_activity_login" />
         <activity
             android:name=".MultiVideoChatActivity"
-            android:label="@string/title_video_chat"/>
+            android:label="@string/title_video_chat">
+            <intent-filter>
+                <action android:name="android.intent.action.andrew.videoChat" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".FirstActivity"
             android:label="@string/title_list_activity">
