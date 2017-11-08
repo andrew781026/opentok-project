@@ -2,7 +2,6 @@ package andrew.com.riko.www.doctorapplication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,11 +84,11 @@ public class TaskArrayAdapter extends BaseAdapter {
                 bundle.putSerializable(KeyName.TASK,task);
                 Intent intent = null ;
                 if ( "諮詢請求".equalsIgnoreCase(task.getTitle()) ){
-                    intent = new Intent(context,AppointmentActivity.class);
-                }else if ( "掛號請求".equalsIgnoreCase(task.getTitle()) ){
                     intent = new Intent(context,AdviceActivity.class);
-                }else if ( "陪同請求".equalsIgnoreCase(task.getTitle()) ){
+                }else if ( "掛號請求".equalsIgnoreCase(task.getTitle()) ){
                     intent = new Intent(context,AppointmentActivity.class);
+                }else if ( "陪同請求".equalsIgnoreCase(task.getTitle()) ){
+                    intent = new Intent(context,AdviceActivity.class);
                 }
 
                 if ( intent != null ){
@@ -102,7 +101,7 @@ public class TaskArrayAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 this.startAppointmentActivity();
-                // Intent intent = new Intent(context,AppointmentActivity.class);
+                // Intent intent = new Intent(context,AdviceActivity.class);
                 // context.startActivity(intent);
             }
         });

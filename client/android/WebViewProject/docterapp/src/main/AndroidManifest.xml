@@ -18,8 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppointmentActivity"></activity>
         <activity android:name=".AdviceActivity"></activity>
+        <activity android:name=".AppointmentActivity"></activity>
 
         <!-- service tag 放在 application tag 中 -->
         <service android:name=".service.MyFirebaseInstanceIdService">

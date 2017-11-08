@@ -52,12 +52,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(RemoteMessage.Notification notification, Map<String,String> datas) {
-        Intent intent = new Intent(this, AppointmentActivity.class);
+        Intent intent = new Intent(this, AdviceActivity.class);
 
-        //  將資料放入 intent 
+        //  將資料放入 intent
         for ( String key : datas.keySet() ){
             intent.putExtra(key,datas.get(key));
         }
+
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -68,6 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 new NotificationCompat.Builder(this)
                         .setContentTitle(notification.getTitle())
                         .setContentText(notification.getBody())
+                        .setSmallIcon(R.drawable.ic_home_black_24dp)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);

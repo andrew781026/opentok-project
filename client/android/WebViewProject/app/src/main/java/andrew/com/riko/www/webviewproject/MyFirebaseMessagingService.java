@@ -39,7 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            // this.sendNotification(remoteMessage.getNotification().getBody(),remoteMessage.getData());
+            this.sendNotification(remoteMessage.getNotification(),remoteMessage.getData());
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -51,7 +51,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onDeletedMessages();
     }
 
-    private void sendNotification(String messageBody,Map<String,String> datas) {
+    private void sendNotification(RemoteMessage.Notification notification, Map<String,String> datas) {
         Intent intent = new Intent(this, HtmlActivity.class);
 
         //  將資料放入 intent 
@@ -68,8 +68,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_stat_ic_notification)
-                        .setContentTitle("FCM Message")
-                        .setContentText(messageBody)
+                        .setContentTitle(notification.getTitle())
+                        .setContentText(notification.getBody())
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentIntent(pendingIntent);
