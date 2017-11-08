@@ -12,6 +12,14 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!-- 相機權限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/vip_call"
@@ -19,6 +27,7 @@
         android:roundIcon="@mipmap/vip_call"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".HtmlActivity"
             android:label="@string/title_activity_html">
@@ -29,7 +38,9 @@
         </activity>
         <activity
             android:name=".BottomActivity"
-            android:label="@string/title_activity_bottom" />
+            android:label="@string/title_activity_bottom" >
+
+        </activity>
         <activity
             android:name=".PictureActivity"
             android:label="@string/title_activity_pics" />
@@ -55,8 +66,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SendMessageActivity"
-            android:label="傳送FCM訊息"></activity>
+        <activity
+            android:name=".SendMessageActivity"
+            android:label="傳送FCM訊息" />
 
         <!-- service tag 放在 application tag 中 -->
         <service android:name=".service.MyFirebaseInstanceIdService">
@@ -70,7 +82,9 @@
             </intent-filter>
         </service>
 
-
+        <activity
+            android:name=".AdviceActivity"
+            android:label="@string/title_activity_advice"></activity>
     </application>
 
 </manifest>

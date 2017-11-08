@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -20,16 +21,20 @@ import okhttp3.Response;
 
 public class SendMessageActivity extends AppCompatActivity {
 
+    private TextView token ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
+        token = (TextView) findViewById(R.id.fcmToken);
 
     }
 
     public void sendMessage(View v){
 
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        token.setText(refreshedToken);
         Toast.makeText(this,"refreshedToken="+refreshedToken,Toast.LENGTH_SHORT).show();
         Log.i("refreshedToken=",refreshedToken);
 

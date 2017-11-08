@@ -1,5 +1,6 @@
 package andrew.com.riko.www.webviewproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -28,19 +29,23 @@ public class BottomActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_call:
                     mTextMessage.setText(R.string.menu_call);
-                    BottomActivity.this.switchToFragment(R.id.fragment,new CallFragment());
+                    BottomActivity.this.switchFragment(R.id.fragment,new CallFragment());
                     return true;
                 case R.id.action_appointment:
                     mTextMessage.setText(R.string.menu_appointment);
-                    BottomActivity.this.switchToFragment(R.id.fragment,new AppointmentFragment());
+                    BottomActivity.this.switchFragment(R.id.fragment,new AppointmentFragment());
                     return true;
                 case R.id.action_history:
                     mTextMessage.setText(R.string.menu_history);
-                    BottomActivity.this.switchToFragment(R.id.fragment,new HistoryFragment());
+                    BottomActivity.this.switchFragment(R.id.fragment,new HistoryFragment());
                     return true;
                 case R.id.action_message:
                     mTextMessage.setText(R.string.menu_message);
-                    BottomActivity.this.switchToFragment(R.id.fragment,new MessageFragment());
+                    BottomActivity.this.switchFragment(R.id.fragment,new MessageFragment());
+                    return true;
+                case R.id.action_ask:
+                    Intent intent = new Intent(BottomActivity.this,AdviceActivity.class);
+                    startActivity(intent);
                     return true;
             }
             return false;
@@ -48,7 +53,7 @@ public class BottomActivity extends AppCompatActivity {
 
     };
 
-    private void switchToFragment(int viewId,Fragment fragment) {
+    private void switchFragment(int viewId, Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         /*
@@ -65,10 +70,13 @@ public class BottomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom);
-        this.switchToFragment(R.id.fragment , new CallFragment());
+
+        // 如果先用 xml 定義 fragment , 在 switch 時 會殘留下來
+        this.switchFragment(R.id.fragment , new CallFragment());
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        // 預設 3 個 以上的 bottom 按鈕 , 文字會隱藏 , 用  BottomNavigationViewHelper 避免此事發生 ( 至多5個不隱藏 )
         BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }

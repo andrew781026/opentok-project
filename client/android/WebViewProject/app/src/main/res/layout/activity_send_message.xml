@@ -4,13 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="andrew.com.riko.www.webviewproject.SendMessageActivity">
 
     <Button
         android:id="@+id/sendMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="傳送FCM"
-        android:onClick="sendMessage"/>
+        android:onClick="sendMessage"
+        android:text="傳送FCM" />
+
+    <TextView
+        android:id="@+id/fcmToken"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="按下傳送按鈕後 , 這裡會顯示 Device Token" />
 
 </LinearLayout>

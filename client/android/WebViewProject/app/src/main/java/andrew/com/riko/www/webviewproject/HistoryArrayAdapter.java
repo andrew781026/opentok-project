@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import andrew.com.riko.www.webviewproject.model.History;
@@ -77,9 +79,17 @@ public class HistoryArrayAdapter extends BaseAdapter {
 
         holder.title.setText(history.getTitle());
         holder.description.setText(history.getDescription());
-        holder.headShot.setImageResource(history.getImageResourceId());
-        return convertView ;
 
+        Picasso.with(context)
+                .load(history.getImageResourceId())
+                .fit()
+                .centerInside()  // call .centerInside() or .centerCrop() to avoid a stretched image
+                .into(holder.headShot);
+
+        // holder.headShot.setImageResource(history.getImageResourceId());
+
+        // holder.headShot.setImageBitmap(); Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.image);
+        return convertView ;
     }
 
     private class ViewHolder {
@@ -93,6 +103,7 @@ public class HistoryArrayAdapter extends BaseAdapter {
             this.description = description;
             this.headShot = headShot;
         }
+
     }
 
 

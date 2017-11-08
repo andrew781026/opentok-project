@@ -86,7 +86,7 @@ public class HistoryFragment extends Fragment {
         ListView listView = (ListView) getView().findViewById(R.id.listView);
 
         List<History> historyList = new ArrayList<>();
-        historyList.add(new History("急診","腿一直在抖,無法停止",R.drawable.ic_dashboard_black_24dp));
+        historyList.add(new History("急診","腿一直在抖,無法停止",R.drawable.female_student));
 
         // TODO  載入的圖片較大 , 會有 excption 需要處理
         /*  
@@ -98,8 +98,8 @@ public class HistoryFragment extends Fragment {
         byte bytes[] = stream.toByteArray();
         */
 
-        historyList.add(new History("出診","北榮小兒科",R.drawable.ic_home_black_24dp));
-        historyList.add(new History("諮詢","台大醫科神經科",R.drawable.ic_chat));
+        historyList.add(new History("出診","北榮小兒科",R.drawable.male_student));
+        historyList.add(new History("諮詢","台大醫科神經科",R.drawable.manager));
 
         HistoryArrayAdapter adapter = new HistoryArrayAdapter(getActivity(),historyList);
         listView.setAdapter(adapter);
