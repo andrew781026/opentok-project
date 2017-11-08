@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -109,6 +110,7 @@ public class AppointmentFragment extends Fragment {
             private FormBody getFormBody() {
 
                 String description = this.getDescription();
+                String fcmToken = FirebaseInstanceId.getInstance().getToken();
 
                 FormBody formBody = new FormBody.Builder()
                         .add("parent_id", "0") //其实会自动编码，但是无法控制编码格式
@@ -131,6 +133,7 @@ public class AppointmentFragment extends Fragment {
                         .add("issued_at","發送日期(yyyyMMdd)")
                         .add("took_at","0")
                         .add("finished_at","0")
+                        .add("fcmToken",fcmToken)
                         .build();
 
                 return formBody ;

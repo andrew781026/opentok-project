@@ -10,41 +10,25 @@ import andrew.com.riko.www.webviewproject.utils.StringUtils;
 /**
  * Created by Test on 2017/11/1.
  */
-public class VideoConnectInfo extends RestConnectInfo {
+public class RestConnectInfo implements Serializable {
 
-    @SerializedName("id")
-    protected int taskId;
-    @SerializedName("api_key")
+    @SerializedName("apiKey")
     protected String apiKey;
-    @SerializedName("session_id")
+    @SerializedName("sessionId")
     protected String sessionId;
-    @SerializedName("room_name")
+    @SerializedName("token")
+    protected String token;
+
     protected String roomName;
 
-    public VideoConnectInfo() {
+    public RestConnectInfo() {
     }
 
-    public VideoConnectInfo(String apiKey, String sessionId, String token, String roomName) {
+    public RestConnectInfo(String apiKey, String sessionId, String token, String roomName) {
         this.apiKey = apiKey;
         this.sessionId = sessionId;
         this.token = token;
         this.roomName = roomName;
-    }
-
-    public VideoConnectInfo(int taskId, String apiKey, String sessionId, String token, String roomName) {
-        this.taskId = taskId;
-        this.apiKey = apiKey;
-        this.sessionId = sessionId;
-        this.token = token;
-        this.roomName = roomName;
-    }
-
-    public int getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(int taskId) {
-        this.taskId = taskId;
     }
 
     public String getApiKey() {
@@ -63,6 +47,14 @@ public class VideoConnectInfo extends RestConnectInfo {
         this.sessionId = sessionId;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public String getRoomName() {
         return roomName;
     }
@@ -71,7 +63,6 @@ public class VideoConnectInfo extends RestConnectInfo {
         this.roomName = roomName;
     }
 
-    @Override
     public boolean isConnectable(){
         if ( StringUtils.isBlank(apiKey) ) return false ;
         if ( StringUtils.isBlank(sessionId) ) return false ;
@@ -82,8 +73,7 @@ public class VideoConnectInfo extends RestConnectInfo {
 
     @Override
     public String toString() {
-        return "VideoConnectInfo{" +
-                "taskId=" + taskId +
+        return "RestConnectInfo{" +
                 ", apiKey='" + apiKey + '\'' +
                 ", sessionId='" + sessionId + '\'' +
                 ", token='" + token + '\'' +

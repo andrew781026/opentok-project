@@ -15,13 +15,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import andrew.com.riko.www.webviewproject.model.RestConnectInfo;
 import andrew.com.riko.www.webviewproject.model.VideoConnectInfo;
 import andrew.com.riko.www.webviewproject.properties.KeyName;
 import andrew.com.riko.www.webviewproject.MultiVideoChatActivity;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -96,8 +107,9 @@ public class CallFragment extends Fragment {
         Button button = (Button) getView().findViewById(R.id.callBtn);
         EditText editText = (EditText) getView().findViewById(R.id.taskIdET);
 
-        String taskId = editText.getText().toString();
-        final String url = "https://www.yoecare.com/calls/"+taskId;
+        final String roomName = editText.getText().toString();
+        final String restServerUrl = "https://oriact-video-chat-project.herokuapp.com/room/"+URLEncoder.encode(roomName);
+        final String callCenterUrl = "https://www.yoecare.com/calls";
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -106,27 +118,70 @@ public class CallFragment extends Fragment {
 
                 Thread thread = new Thread(new Runnable() {
 
-                    private VideoConnectInfo getVideoConnectInfo(){
+                    private void postToCallCenter(VideoConnectInfo videoConnectInfo,OkHttpClient client){
 
-                        OkHttpClient client = new OkHttpClient();
+                        String fcmToken = FirebaseInstanceId.getInstance().getToken();
 
-                        Request request = new Request.Builder()
-                                .url(url)
+                        FormBody formBody = new FormBody.Builder()
+                                .add("api_key", videoConnectInfo.getApiKey())
+                                .add("room_name",videoConnectInfo.getRoomName() )
+                                .add("session_id",videoConnectInfo.getSessionId())
+                                .add("token",videoConnectInfo.getToken())
+                                .add("fcmToken",fcmToken)
                                 .build();
+
+                        Request request = new Request.Builder().url(callCenterUrl).post(formBody).build();
 
                         try {
                             Response response = client.newCall(request).execute();
 
-                            if ( response.code() == 200 ){
+                            Log.i("videoConnectInfo pc",response.code()+"");
+
+                            if (response.code() == 200) {
 
                                 String body = response.body().string();
+                                JSONObject bodyObject = new JSONObject(body);
+                                JSONObject data = bodyObject.getJSONObject("data");
+                                int taskId = data.getInt("id");
+                                videoConnectInfo.setTaskId(taskId);
+
+                            }else {
+                                String body = response.body().string();
+                                Log.i("videoConnectInfo pc",body);
+                            }
+                        } catch (IOException | JSONException e) {
+                            Log.e("in CallFragment","postToCallCenter fail");
+                        }
+
+                    }
+
+                    private VideoConnectInfo getVideoConnectInfo(){
+
+                        try {
+                            OkHttpClient client = new OkHttpClient();
+
+                            Request request = new Request.Builder()
+                                    .url(restServerUrl)
+                                    .build();
+
+                            Response response = client.newCall(request).execute();
+
+                            if ( response.code() == 200 ){
+                                String body = response.body().string();
                                 Gson gson = new Gson();
-                                VideoConnectInfo videoConnectInfo = gson.fromJson(body, VideoConnectInfo.class);
+                                RestConnectInfo restConnectInfo = gson.fromJson(body, RestConnectInfo.class);
+                                VideoConnectInfo videoConnectInfo = new VideoConnectInfo();
+                                videoConnectInfo.setApiKey(restConnectInfo.getApiKey());
+                                videoConnectInfo.setSessionId(restConnectInfo.getSessionId());
+                                videoConnectInfo.setToken(restConnectInfo.getToken());
+                                videoConnectInfo.setRoomName(roomName);
+                                Log.i("videoConnectInfo",videoConnectInfo.toString());
+                                this.postToCallCenter(videoConnectInfo,client);
                                 return videoConnectInfo ;
                             }
 
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            Log.e("in CallFragment","getVideoConnectInfo fail");
                         }
                         return null ;
                     }

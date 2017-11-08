@@ -21,14 +21,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="25sp"
-            android:text="請輸入teskID"
+            android:text="請輸入房間名稱"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/taskIdET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2" />
+            android:text="大雄的房間" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -45,7 +45,6 @@
 
 
     </LinearLayout>
-
 
 
 </FrameLayout>
