@@ -9,7 +9,6 @@
     android:weightSum="1">
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="掛號資訊"
@@ -19,7 +18,7 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/headshotIV"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_weight="0.16"
@@ -27,21 +26,21 @@
         app:srcCompat="@drawable/female" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/nameTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="姓名:黃美麗"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/birthdayTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="生日:1997/11/26"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/identityNoTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="身分證字號:F254458381"
@@ -53,7 +52,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/successBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,7 +62,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/failBTN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -72,5 +71,17 @@
             android:textColor="@android:color/white"
             android:textSize="24sp" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="備註"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="這裡將會顯示掛哪一科哪個醫生" />
 
 </LinearLayout>

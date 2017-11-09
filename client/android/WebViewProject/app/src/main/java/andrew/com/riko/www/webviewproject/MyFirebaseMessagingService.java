@@ -52,7 +52,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(RemoteMessage.Notification notification, Map<String,String> datas) {
-        Intent intent = new Intent(this, HtmlActivity.class);
+
+        Intent intent ;
+        String missionType = datas.get("mission_type");
+
+        if ( "掛號".equalsIgnoreCase(missionType) ){
+            intent = new Intent("android.intent.action.andrew.doctor.appointment");
+        }else if ( "諮詢".equalsIgnoreCase(missionType) ){
+            intent = new Intent("android.intent.action.andrew.doctor.advice");
+        }else {
+            intent = new Intent(this,HtmlActivity.class);
+        }
 
         //  將資料放入 intent 
         for ( String key : datas.keySet() ){

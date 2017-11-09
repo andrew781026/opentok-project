@@ -1,22 +1,38 @@
 package andrew.com.riko.www.doctorapplication.model;
 
-import android.graphics.drawable.Drawable;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
 /**
  * Created by Test on 2017/11/4.
  */
-
+@DatabaseTable(tableName = "registration")
 public class Task implements Serializable {
 
+    @DatabaseField(columnName="id",id = true)
+    private int missionId ;
+    @DatabaseField(columnName="title")
     private String title;
+    @DatabaseField(columnName="age")
     private int age;
+    @DatabaseField(columnName="name")
     private String name;
+    @DatabaseField(columnName="description")
     private String description;
+    @DatabaseField(persisted=false)
     private int imageResourceId;
 
     public Task() {
+    }
+
+    public Task(int missionId, String title, int age, String name, String description) {
+        this.missionId = missionId;
+        this.title = title;
+        this.age = age;
+        this.name = name;
+        this.description = description;
     }
 
     public Task(String title, String name, int age, String description, int imageResourceId) {
@@ -25,6 +41,14 @@ public class Task implements Serializable {
         this.name = name;
         this.description = description;
         this.imageResourceId = imageResourceId;
+    }
+
+    public int getMissionId() {
+        return missionId;
+    }
+
+    public void setMissionId(int missionId) {
+        this.missionId = missionId;
     }
 
     public String getTitle() {
@@ -67,12 +91,11 @@ public class Task implements Serializable {
         this.imageResourceId = imageResourceId;
     }
 
-
-
     @Override
     public String toString() {
         return "Task{" +
-                "title='" + title + '\'' +
+                "missionId=" + missionId +
+                ", title='" + title + '\'' +
                 ", age=" + age +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

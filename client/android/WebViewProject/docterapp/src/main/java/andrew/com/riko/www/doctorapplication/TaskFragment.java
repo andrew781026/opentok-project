@@ -1,7 +1,6 @@
 package andrew.com.riko.www.doctorapplication;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,17 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import andrew.com.riko.www.doctorapplication.dao.TaskDAO;
 import andrew.com.riko.www.doctorapplication.model.Task;
-import andrew.com.riko.www.doctorapplication.properties.KeyName;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,14 +72,16 @@ public class TaskFragment extends Fragment {
 
         ListView listView = (ListView) getView().findViewById(R.id.listView);
 
-        List<Task> taskList = new ArrayList<>();
+        TaskDAO taskDAO = new TaskDAO(getActivity());
+        List<Task> taskList = taskDAO.list();
+
+        // List<Task> taskList = new ArrayList<>();
         taskList.add(new Task("諮詢請求","楊小過",26,"右眼一直跳,無法停止",R.drawable.office_lady));
         taskList.add(new Task("掛號請求","董舉人",52,"掛神經科神醫-葉炳和",R.drawable.man));
         taskList.add(new Task("陪同請求","江泰學",9,"小朋友,一直流鼻水,請求陪同看小兒科",R.drawable.woman));
 
         TaskArrayAdapter adapter = new TaskArrayAdapter(getActivity(),taskList);
         listView.setAdapter(adapter);
-
     }
 
     @Override

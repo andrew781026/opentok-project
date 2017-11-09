@@ -10,16 +10,18 @@ import andrew.com.riko.www.webviewproject.utils.StringUtils;
 /**
  * Created by Test on 2017/11/1.
  */
-public class VideoConnectInfo extends RestConnectInfo {
+public class VideoConnectInfo implements Serializable {
 
     @SerializedName("id")
     protected int taskId;
-    @SerializedName("api_key")
+    @SerializedName(value = "api_key",alternate = {"apiKey"})
     protected String apiKey;
-    @SerializedName("session_id")
+    @SerializedName(value = "session_id",alternate = {"sessionId"})
     protected String sessionId;
-    @SerializedName("room_name")
+    @SerializedName(value = "room_name")
     protected String roomName;
+    @SerializedName(value = "token")
+    protected String token;
 
     public VideoConnectInfo() {
     }
@@ -71,7 +73,14 @@ public class VideoConnectInfo extends RestConnectInfo {
         this.roomName = roomName;
     }
 
-    @Override
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public boolean isConnectable(){
         if ( StringUtils.isBlank(apiKey) ) return false ;
         if ( StringUtils.isBlank(sessionId) ) return false ;

@@ -21,22 +21,14 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 
-import andrew.com.riko.www.webviewproject.model.RestConnectInfo;
 import andrew.com.riko.www.webviewproject.model.VideoConnectInfo;
 import andrew.com.riko.www.webviewproject.properties.KeyName;
-import andrew.com.riko.www.webviewproject.MultiVideoChatActivity;
 import okhttp3.FormBody;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -162,22 +154,23 @@ public class CallFragment extends Fragment {
 
                             Request request = new Request.Builder()
                                     .url(restServerUrl)
+                                    .get()
                                     .build();
 
                             Response response = client.newCall(request).execute();
 
                             if ( response.code() == 200 ){
                                 String body = response.body().string();
+                                Log.i("videoConnectInfo",body);
                                 Gson gson = new Gson();
-                                RestConnectInfo restConnectInfo = gson.fromJson(body, RestConnectInfo.class);
-                                VideoConnectInfo videoConnectInfo = new VideoConnectInfo();
-                                videoConnectInfo.setApiKey(restConnectInfo.getApiKey());
-                                videoConnectInfo.setSessionId(restConnectInfo.getSessionId());
-                                videoConnectInfo.setToken(restConnectInfo.getToken());
+                                VideoConnectInfo videoConnectInfo = gson.fromJson(body, VideoConnectInfo.class);
                                 videoConnectInfo.setRoomName(roomName);
-                                Log.i("videoConnectInfo",videoConnectInfo.toString());
                                 this.postToCallCenter(videoConnectInfo,client);
                                 return videoConnectInfo ;
+                            }else {
+                                String body = response.body().string();
+                                Log.i("videoConnectInfo",body);
+                                Log.i("response.code()",response.code()+"");
                             }
 
                         } catch (IOException e) {

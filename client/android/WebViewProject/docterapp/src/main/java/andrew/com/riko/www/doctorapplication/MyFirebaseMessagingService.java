@@ -14,11 +14,15 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
+import andrew.com.riko.www.doctorapplication.dao.TaskDAO;
+import andrew.com.riko.www.doctorapplication.model.Task;
+
 // 此 service 用來接收 message
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     public static final String TAG = "web-FirebaseMsgService";
     private static int counter = 0;
+    private TaskDAO taskDAO = new TaskDAO(this);
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -51,8 +55,32 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onDeletedMessages();
     }
 
+    private Task getTask(Map<String,String> datas){
+
+        int missionId = Integer.valueOf(datas.get("mission_id")) ;
+        String title = datas.get("mission_type");
+        int age = counter + 20;
+        String name = datas.get("name");
+        String description = datas.get("description");
+
+        Task task = new Task(missionId,title,age,name,description);
+        return task ;
+    }
+
     private void sendNotification(RemoteMessage.Notification notification, Map<String,String> datas) {
-        Intent intent = new Intent(this, AdviceActivity.class);
+
+        Intent intent ;
+        String missionType = datas.get("mission_type");
+
+        if ( "掛號".equalsIgnoreCase(missionType) ){
+            taskDAO.create(  getTask(datas) );
+            intent = new Intent("android.intent.action.andrew.doctor.appointment");
+        }else if ( "諮詢".equalsIgnoreCase(missionType) ){
+            taskDAO.create(  getTask(datas) );
+            intent = new Intent("android.intent.action.andrew.doctor.advice");
+        }else {
+            intent = new Intent(this,MainActivity.class);
+        }
 
         //  將資料放入 intent
         for ( String key : datas.keySet() ){

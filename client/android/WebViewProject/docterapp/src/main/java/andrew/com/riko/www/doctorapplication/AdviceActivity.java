@@ -21,6 +21,8 @@ public class AdviceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advice);
 
+        getSupportActionBar().setTitle("諮詢");
+
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.i("fcmToken=",refreshedToken);
 

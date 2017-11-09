@@ -14,12 +14,21 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdviceActivity"></activity>
-        <activity android:name=".AppointmentActivity"></activity>
+        <activity android:name=".AdviceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.andrew.doctor.advice" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AppointmentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.andrew.doctor.appointment" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <!-- service tag 放在 application tag 中 -->
         <service android:name=".service.MyFirebaseInstanceIdService">

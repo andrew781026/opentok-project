@@ -23,7 +23,14 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
+import andrew.com.riko.www.webviewproject.http.HttpUtils;
+import andrew.com.riko.www.webviewproject.model.City;
+import andrew.com.riko.www.webviewproject.model.Division;
+import andrew.com.riko.www.webviewproject.model.Hospital;
+import andrew.com.riko.www.webviewproject.model.Region;
 import andrew.com.riko.www.webviewproject.model.VideoConnectInfo;
 import andrew.com.riko.www.webviewproject.properties.KeyName;
 import andrew.com.riko.www.webviewproject.utils.IntUtils;
@@ -285,6 +292,48 @@ public class AppointmentFragment extends Fragment {
     }
 
 
+    private void setValuesToSpinner(final Spinner spinner, final Class clazz, String typeName){
+        final String url = "https://www.yoecare.com/" + typeName ;
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                List list = HttpUtils.getModels(url,clazz);
+                String[] strings = AppointmentFragment.this.listToStringArray(list);
+                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item,strings);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        spinner.setAdapter(adapter);
+                    }
+                });
+            }
+        });
+        thread.start();
+
+    }
+
+    private String[] listToStringArray(List list){
+        String[] strings = new String[1];
+        List<String> stringList = new ArrayList<>();
+        for ( Object o : list ){
+            if ( o instanceof Hospital){
+                String hospitalName = ((Hospital) o).getName();
+                stringList.add(hospitalName);
+            }else if ( o instanceof Region){
+                String regionName = ((Region) o).getName();
+                stringList.add(regionName);
+            }else if ( o instanceof City){
+                String cityName = ((City) o).getName();
+                stringList.add(cityName);
+            }else if ( o instanceof Division){
+                String divisionName = ((Division) o).getName();
+                stringList.add(divisionName);
+            }
+        }
+        return stringList.toArray(strings);
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -293,6 +342,10 @@ public class AppointmentFragment extends Fragment {
         Spinner hospitalSpinner = (Spinner) getView().findViewById(R.id.hospitalSpinner);
         Spinner divisionSpinner = (Spinner) getView().findViewById(R.id.divisionSpinner);
         EditText doctorET = (EditText) getView().findViewById(R.id.doctorET);
+
+        this.setValuesToSpinner(citySpinner,City.class,"cities");
+        this.setValuesToSpinner(hospitalSpinner,Hospital.class,"hospitals");
+        this.setValuesToSpinner(divisionSpinner,Division.class,"divisions");
 
         //使用Spinner
         Spinner monthSpinner = (Spinner) getView().findViewById(R.id.monthSpinner);
